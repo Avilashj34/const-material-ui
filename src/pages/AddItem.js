@@ -20,7 +20,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Formik, FieldArray, Form } from "formik";
-import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 import {
   showErrorSnackbar,
   showSuccessSnackbar,
@@ -54,6 +54,8 @@ const statusCodeArray = [401, 403, 404, 409, 422];
 
 function AddItem({ isOpen, handleClose, siteIdtoadd }) {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
+
 
   const [count, setCount] = useState(0);
   const [unitList, setUnitList] = useState([]);
@@ -87,10 +89,11 @@ function AddItem({ isOpen, handleClose, siteIdtoadd }) {
 
   const addItemOnSubmit = (values) => {
     axios
-      .post("/material", values)
-      .then((response) => {
-        if (response.status === 200) {
+    .post("/material", values)
+    .then((response) => {
+      if (response.status === 200) {
           dispatch(showSuccessSnackbar("Material Added Successfully"));
+          handleClose()
         }
       })
       .catch((error) => {

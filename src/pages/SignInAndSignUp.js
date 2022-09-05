@@ -150,7 +150,7 @@ function SignInAndSignUp() {
       .then((response) => {
         if (response.status === 200) {
           dispatch(setUserName(values.email));
-          navigate("/home");
+          navigate("/home/siteList");
         }
       })
       .catch((error) => {
